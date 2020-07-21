@@ -1,0 +1,16 @@
+{
+   "status":1,
+   "type":"device",
+   "sub_type":"feed",
+   "name":"test-1",
+   "priority":3,
+   "parent":"datacenter-2",
+   "linked":[
+
+   ],
+   "ext":{
+      "ip.1":"1.1.1.1",
+      "location_type":"datacenter",
+      "name":"myfeed"
+   }
+}
