@@ -65,7 +65,8 @@ int main(int argc, char **argv)
         std::cout << "./asset-test UPDATE      <FILE>" << std::endl;
         std::cout << "./asset-test DELETE      <INAME>" << std::endl;
         std::cout << "./asset-test DELETE_LIST <INAME> [...]" << std::endl;
-        std::cout << "./asset-test GET <INAME>" << std::endl;
+        std::cout << "./asset-test GET         <INAME>" << std::endl;
+        std::cout << "./asset-test GET_BY_UUID <UUID>" << std::endl;
         std::cout << "./asset-test LIST" << std::endl;
         exit(1);
     }
@@ -177,6 +178,17 @@ int main(int argc, char **argv)
         if (argc < 3)
         {
             std::cout << "./asset-test GET <INAME>" << std::endl;
+            exit(1);
+        }
+        std::string iname = argv[2];
+
+        msg.userData().push_back(iname);
+    }
+    else if (op == "GET_BY_UUID")
+    {
+        if (argc < 3)
+        {
+            std::cout << "./asset-test GET_BY_UUID <UUID>" << std::endl;
             exit(1);
         }
         std::string iname = argv[2];

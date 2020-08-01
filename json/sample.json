@@ -6,7 +6,6 @@
    "priority":3,
    "parent":"datacenter-2",
    "linked":[
-
    ],
    "ext":{
       "ip.1":"1.1.1.1",
