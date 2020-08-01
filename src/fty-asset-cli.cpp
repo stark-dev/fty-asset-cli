@@ -18,6 +18,8 @@
 */
 
 #include <asset/conversion/json.h>
+#include <cxxtools/serializationinfo.h>
+#include <cxxtools/jsonserializer.h>
 #include <filesystem>
 #include <fty_asset_dto.h>
 #include <fty_common_messagebus.h>
@@ -59,9 +61,10 @@ int main(int argc, char **argv)
 {
     if (argc < 2)
     {
-        std::cout << "./asset-test CREATE <FILE>" << std::endl;
-        std::cout << "./asset-test UPDATE <FILE>" << std::endl;
-        std::cout << "./asset-test DELETE <INAME>" << std::endl;
+        std::cout << "./asset-test CREATE      <FILE>" << std::endl;
+        std::cout << "./asset-test UPDATE      <FILE>" << std::endl;
+        std::cout << "./asset-test DELETE      <INAME>" << std::endl;
+        std::cout << "./asset-test DELETE_LIST <INAME> [...]" << std::endl;
         std::cout << "./asset-test GET <INAME>" << std::endl;
         std::cout << "./asset-test LIST" << std::endl;
         exit(1);
@@ -129,12 +132,45 @@ int main(int argc, char **argv)
     {
         if (argc < 2)
         {
-            std::cout << "./asset-test DELETE <INAME>" << std::endl;
+            std::cout << "./asset-test DELETE <INAME> [recursive]" << std::endl;
             exit(1);
         }
         std::string iname = argv[2];
 
+        if (argc == 4)
+        { // option
+            if (std::string(argv[3]) == "recursive")
+            {
+                msg.metaData().emplace("RECURSIVE", "YES");
+            }
+        }
+
         msg.userData().push_back(iname);
+    }
+    else if (op == "DELETE_LIST")
+    {
+        if (argc < 2)
+        {
+            std::cout << "./asset-test DELETE_LIST <INAME> [...]" << std::endl;
+            exit(1);
+        }
+
+        std::vector<std::string> inames;
+
+        int c = 2;
+        while (c < argc)
+        {
+            inames.push_back(argv[c++]);
+        }
+
+        cxxtools::SerializationInfo list;
+        list <<= inames;
+
+        std::stringstream output;
+        cxxtools::JsonSerializer serializer(output);
+        serializer.serialize(list);
+
+        msg.userData().push_back(output.str());
     }
     else if (op == "GET")
     {
