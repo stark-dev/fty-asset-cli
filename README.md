@@ -18,13 +18,12 @@ make
 
 ## Available operations
 ```
-CREATE      : ./fty-asset-cli CREATE asset.json            # create new asset
-UPDATE      : ./fty-asset-cli UDPATE asset.json            # update existing asset
-DELETE      : ./fty-asset-cli DELETE asset-name            # delete asset
-DELETE_LIST : ./fty-asset-cli DELETE_LIST asset-name [...] # delete list of assets
-GET         : ./fty-asset-cli GET asset-name               # get asset
-GET_BY_UUID : ./fty-asset-cli GET uuid                     # get asset
-LIST        : ./fty-asset-cli LIST                         # list all asset names
+CREATE      : ./fty-asset-cli CREATE asset.json                  # create new asset
+UPDATE      : ./fty-asset-cli UDPATE asset.json                  # update existing asset
+DELETE      : ./fty-asset-cli DELETE asset-name [asset-name ...] # delete one or more assets
+GET         : ./fty-asset-cli GET asset-name                     # get asset
+GET_BY_UUID : ./fty-asset-cli GET uuid                           # get asset
+LIST        : ./fty-asset-cli LIST                               # list all asset names
 ```
 
 ## Dependencies

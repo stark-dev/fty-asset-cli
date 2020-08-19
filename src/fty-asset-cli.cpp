@@ -63,8 +63,7 @@ int main(int argc, char **argv)
     {
         std::cout << "./asset-test CREATE      <FILE>" << std::endl;
         std::cout << "./asset-test UPDATE      <FILE>" << std::endl;
-        std::cout << "./asset-test DELETE      <INAME>" << std::endl;
-        std::cout << "./asset-test DELETE_LIST <INAME> [...]" << std::endl;
+        std::cout << "./asset-test DELETE      <INAME> [...]" << std::endl;
         std::cout << "./asset-test GET         <INAME>" << std::endl;
         std::cout << "./asset-test GET_BY_UUID <UUID>" << std::endl;
         std::cout << "./asset-test LIST" << std::endl;
@@ -133,26 +132,7 @@ int main(int argc, char **argv)
     {
         if (argc < 2)
         {
-            std::cout << "./asset-test DELETE <INAME> [recursive]" << std::endl;
-            exit(1);
-        }
-        std::string iname = argv[2];
-
-        if (argc == 4)
-        { // option
-            if (std::string(argv[3]) == "recursive")
-            {
-                msg.metaData().emplace("RECURSIVE", "YES");
-            }
-        }
-
-        msg.userData().push_back(iname);
-    }
-    else if (op == "DELETE_LIST")
-    {
-        if (argc < 2)
-        {
-            std::cout << "./asset-test DELETE_LIST <INAME> [...]" << std::endl;
+            std::cout << "./asset-test DELETE [recursive] <INAME> [...]" << std::endl;
             exit(1);
         }
 
@@ -161,6 +141,11 @@ int main(int argc, char **argv)
         int c = 2;
         while (c < argc)
         {
+            if (std::string(argv[c]) == "recursive")
+            {
+                msg.metaData().emplace("RECURSIVE", "YES");
+            }
+
             inames.push_back(argv[c++]);
         }
 

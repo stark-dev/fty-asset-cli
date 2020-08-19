@@ -18,11 +18,10 @@ etn_target(exe ${PROJECT_NAME}
         src/fty-asset-cli.cpp
 
     INCLUDE_DIRS
-        /usr/include/
         include/
+
     USES
         cxxtools
-        fty_asset
         fty_common_logging
         fty_common_messagebus
         pthread
