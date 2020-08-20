@@ -23,7 +23,7 @@ UPDATE      : ./fty-asset-cli UDPATE asset.json                  # update existi
 DELETE      : ./fty-asset-cli DELETE asset-name [asset-name ...] # delete one or more assets
 GET         : ./fty-asset-cli GET asset-name                     # get asset
 GET_BY_UUID : ./fty-asset-cli GET uuid                           # get asset
-LIST        : ./fty-asset-cli LIST                               # list all asset names
+LIST        : ./fty-asset-cli LIST [filter.json]                 # list asset names
 ```
 
 ## Dependencies

@@ -66,7 +66,7 @@ int main(int argc, char **argv)
         std::cout << "./asset-test DELETE      <INAME> [...]" << std::endl;
         std::cout << "./asset-test GET         <INAME>" << std::endl;
         std::cout << "./asset-test GET_BY_UUID <UUID>" << std::endl;
-        std::cout << "./asset-test LIST" << std::endl;
+        std::cout << "./asset-test LIST        [FILE]" << std::endl;
         exit(1);
     }
 
@@ -182,7 +182,21 @@ int main(int argc, char **argv)
     }
     else if (op == "LIST")
     {
-        ;
+        if (argc > 2)
+        {
+            std::string filterJson;
+
+            std::ifstream file;
+            file.open(argv[2]);
+
+            std::ostringstream stream;
+            stream << file.rdbuf();
+            filterJson = stream.str();
+
+            msg.userData().push_back(filterJson);
+
+            file.close();
+        }
     }
     else
     {

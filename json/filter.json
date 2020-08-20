@@ -1,0 +1,7 @@
+{
+    "status":["active"],
+    "type":["device"],
+    "sub_type":["ups", "server"],
+    "priority":[1,2,3],
+    "parent":"[datacenter-2]"
+}
