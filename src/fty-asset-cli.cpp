@@ -17,7 +17,6 @@
     =========================================================================
 */
 
-#include <asset/conversion/json.h>
 #include <cxxtools/serializationinfo.h>
 #include <cxxtools/jsonserializer.h>
 #include <filesystem>
@@ -167,6 +166,15 @@ int main(int argc, char **argv)
         }
         std::string iname = argv[2];
 
+        int c = 3;
+        while (c < argc)
+        {
+            if (std::string(argv[c++]) == "plist")
+            {
+                msg.metaData().emplace("WITH_PARENTS_LIST", "true");
+            }
+        }
+
         msg.userData().push_back(iname);
     }
     else if (op == "GET_BY_UUID")
@@ -182,20 +190,34 @@ int main(int argc, char **argv)
     }
     else if (op == "LIST")
     {
-        if (argc > 2)
+        int c = 2;
+        while (c < argc)
         {
-            std::string filterJson;
+            if (std::string(argv[c]) == "plist")
+            {
+                msg.metaData().emplace("WITH_PARENTS_LIST", "true");
+            }
+            else if (std::string(argv[c]) == "full")
+            {
+                msg.metaData().emplace("ID_ONLY", "false");
+            }
+            else
+            {
+                std::string filterJson;
 
-            std::ifstream file;
-            file.open(argv[2]);
+                std::ifstream file;
+                file.open(argv[c]);
 
-            std::ostringstream stream;
-            stream << file.rdbuf();
-            filterJson = stream.str();
+                std::ostringstream stream;
+                stream << file.rdbuf();
+                filterJson = stream.str();
 
-            msg.userData().push_back(filterJson);
+                msg.userData().push_back(filterJson);
 
-            file.close();
+                file.close();
+            }
+
+            c++;
         }
     }
     else
